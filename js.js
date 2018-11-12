@@ -22,7 +22,7 @@ function simularIngresoAutos(){
         if(espacio [posicion] == ""){ //Se fija que en el lugar posicion del arreglo no haya ninguna patente guardada
             espacio [posicion] = patente;  //Asigna el lugar a la patente
             contador++; 
-            if(contador == inputCantidad){ //Si el contador (cantidad de veces que guardo una patente) es igual a la cantidad de autos que ingresaste significa que todos los autos  ingresaron
+            if(contador == (inputCantidad)){ //Si el contador (cantidad de veces que guardo una patente) es igual a la cantidad de autos que ingresaste significa que todos los autos  ingresaron
                 divResultado.innerHTML = -1;
                 contador = -1;
                 estaciono = false;
@@ -65,13 +65,18 @@ function funcionEpsilon(){
     let boolean = true;
     let cuenta = 0;
     let contador = 0;
+    let contadorAciertos = 0;
 
     while (boolean) {   
         contador++;
-        let probabilidad = probabilidadDeColision(); //Devuelve la probabilidad del anterior
+        let valorRetorna = simularIngresoAutos(); //Devuelve la probabilidad del anterior
+        if(valorRetorna == 0){
+            contadorAciertos++;
+        }
+        let probabilidad = contadorAciertos/contador;
         cuenta = Math.abs(anterior - probabilidad); //Valor Absoluto
-        if(cuenta < epsilon){  //Si cuenta es menoral epsilon finaliza el while 
-            boolean = false
+        if((cuenta < epsilon)&&(contador > 10)){  //Si cuenta es menoral epsilon finaliza el while 
+                boolean = false;
         }
         else {  //Si es mayor cuenta a epsilon se reemplaza el parametro anterior con el nuevo
             anterior = probabilidad;            
